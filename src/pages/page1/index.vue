@@ -222,7 +222,7 @@ export default {
         'gtin' : 9873917396,
         'name' : '水',
         'classes': '无',
-        'company': '农夫山泉',
+        'company': '农夫山泉 ',
         'status': "未分类"
       }
       ]
