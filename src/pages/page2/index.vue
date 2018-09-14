@@ -20,7 +20,7 @@
       <el-table
       v-loading="listLoading"
       :key="tableKey"
-      :data="list"
+      :data="tablelist"
       border
       fit
       highlight-current-row
@@ -135,6 +135,7 @@
 </template>
 
 <script>
+import { CategTableList } from '@/api/api.js'
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 /* eslint-disable */
 const calendarTypeOptions = [
@@ -168,6 +169,7 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      tablelist: null,
       total: null,
       listLoading: false,
       listQuery: {
@@ -209,7 +211,8 @@ export default {
     }
   },
   created() {
-    this.getList()
+    this.getList(),
+    this.getTableList()
   },
   methods: {
     getList() {
@@ -237,6 +240,49 @@ export default {
       //     this.listLoading = false
       //   }, 1.5 * 1000)
       // })
+    },
+    getTableList() {
+      this.listLoading = false
+      CategTableList({
+      })
+        .then(res => {
+          this.tablelist = new Array()
+          res[0].sub_cat.forEach( v => {
+              this.keylist = new Array()
+              v.sub_cat.forEach( k => {
+                  this.keylist.push(k.name)
+                }
+              )
+              this.tlow = {
+                'class1': res[0].name,
+                'class2': v.name,
+                'keyword': this.keylist,
+                'stand': "gb1231234"
+              }
+              this.tablelist.push(this.tlow)
+            }  
+          )    
+          // for(let v of res.sub_cat) {  
+          //   keylist = new Array()
+          //   for(let k of v.sub_cat){
+          //     keylist.push(k.name)
+          //   }  
+          //   tlow = {
+          //     'class1': res.name,
+          //     'class2': v.name,
+          //     'keyword': keylist,
+          //     'stand': "gb1231234"
+          //   }
+          //   this.tablelist.push(tlow)
+          // }
+          // console.log(this.tablelist)
+          // console.log(res[0].sub_cat)
+        })
+        .catch(err => {
+          // 异常情况
+          console.log(err)
+        })
+      this.total = 100
     },
     handleFilter() {
       this.listQuery.page = 1
