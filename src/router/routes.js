@@ -28,14 +28,14 @@ const frameIn = [
         path: '/page2',
         name: 'page2',
         component: () => import('@/pages/page2'),
-        meta: { meta, title: '页面 2' }
+        meta: { meta, title: '分类列表' }
       },
       {
         path: '/page3',
         name: 'page3',
         component: () => import('@/pages/page3'),
-        meta: { meta, title: '页面 3' }
-      }
+        meta: { meta, title: '标准列表' }
+      },
     ]
   }
 ]
