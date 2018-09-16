@@ -30,20 +30,21 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="条码" width="150px" align="center">
+      <el-table-column label="条码"  align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.gtin }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="产品名" min-width="50px">
+      <el-table-column label="产品名">
         <template slot-scope="scope">
           <span class="link-type" @click="handleUpdate(scope.row)">{{ scope.row.name }}</span>
           <!-- <el-tag>{{ scope.row.type | typeFilter }}</el-tag> -->
         </template>
       </el-table-column>
-      <el-table-column label="分类" width="110px" align="center">
+      <el-table-column label="分类" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.classes }}</span>
+          <span v-if="scope.row.classes.length!=0">{{ scope.row.classes[0].name}}</span>
+          <span v-else>无</span>
         </template>
       </el-table-column>
       <!-- <el-table-column v-if="showReviewer" :label="$t('table.reviewer')" width="110px" align="center">
@@ -56,7 +57,7 @@
           <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon"/>
         </template>
       </el-table-column> -->
-      <el-table-column label="公司" align="center" width="150px">
+      <el-table-column label="公司" align="center" >
         <template slot-scope="scope">
           <span>{{ scope.row.company }}</span>
           <!-- <span v-if="scope.row.pageviews" class="link-type" @click="handleFetchPv(scope.row.pageviews)">{{ scope.row.pageviews }}</span>
@@ -130,6 +131,7 @@
 </template>
 
 <script>
+import { GoodTableList } from '@/api/api.js'
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 /* eslint-disable */
 const calendarTypeOptions = [
@@ -163,6 +165,7 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      pageurl: 'null',
       total: null,
       listLoading: false,
       listQuery: {
@@ -208,25 +211,17 @@ export default {
   },
   methods: {
     getList() {
-      this.listLoading = false
-      this.list = [{
-        'id': 1,
-        'gtin' : 9873917398,
-        'name' : '可口可乐',
-        'classes': '碳酸饮料',
-        'company': '可口可乐公司',
-        'status': "已分类"
-      },
-      {
-        'id': 2,
-        'gtin' : 9873917396,
-        'name' : '水',
-        'classes': '无',
-        'company': '农夫山泉 ',
-        'status': "未分类"
-      }
-      ]
-      this.total = 100
+      this.listLoading = true
+      GoodTableList({page: this.listQuery.page,search:this.listQuery.title}).then(response => {
+        this.list = response.results
+        this.total = response.count
+        // console.log(this.listQuery)
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+      })
+      
       // fetchList(this.listQuery).then(response => {
       //   this.list = response.data.items
       //   this.total = response.data.total
@@ -368,3 +363,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.filter-container {
+  padding-bottom: 10px
+}
+.filter-container .filter-item {
+    display: inline-block;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.pagination-container {
+    margin-top: 30px;
+}
+</style>

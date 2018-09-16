@@ -86,9 +86,9 @@
       </el-table-column>
     </el-table>
 
-    <div class="pagination-container">
+   <!-- <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
-    </div>
+    </div> -->
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
@@ -211,39 +211,38 @@ export default {
     }
   },
   created() {
-    this.getList(),
-    this.getTableList()
+    this.getList()
   },
   methods: {
+    // getList() {
+    //   this.listLoading = false
+    //   this.list = [{
+    //     'class1': "饮料",
+    //     'class2' : "碳酸饮料",
+    //     'keyword' : "运动饮料,功能饮料,宝矿力水特,红牛,电解质,东鹏特饮,脉动,维生素饮料,苏打水饮料,秋林 格瓦斯,能量型,黑水,汤力汽水",
+    //     'stand': "gb12312312"
+    //   },
+    //   {
+    //     'class1': "饮料",
+    //     'class2' : "咖啡",
+    //     'keyword' : '咖啡',
+    //     'stand': "gb12312312"
+    //   }
+    //   ]
+    //   this.total = 100
+    //   // fetchList(this.listQuery).then(response => {
+    //   //   this.list = response.data.items
+    //   //   this.total = response.data.total
+
+    //   //   // Just to simulate the time of the request
+    //   //   setTimeout(() => {
+    //   //     this.listLoading = false
+    //   //   }, 1.5 * 1000)
+    //   // })
+    // },
     getList() {
       this.listLoading = false
-      this.list = [{
-        'class1': "饮料",
-        'class2' : "碳酸饮料",
-        'keyword' : "运动饮料,功能饮料,宝矿力水特,红牛,电解质,东鹏特饮,脉动,维生素饮料,苏打水饮料,秋林 格瓦斯,能量型,黑水,汤力汽水",
-        'stand': "gb12312312"
-      },
-      {
-        'class1': "饮料",
-        'class2' : "咖啡",
-        'keyword' : '咖啡',
-        'stand': "gb12312312"
-      }
-      ]
-      this.total = 100
-      // fetchList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.total = response.data.total
-
-      //   // Just to simulate the time of the request
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 1.5 * 1000)
-      // })
-    },
-    getTableList() {
-      this.listLoading = false
-      CategTableList({
+      CategTableList({search: this.listQuery.title
       })
         .then(res => {
           this.tablelist = new Array()
@@ -415,3 +414,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.filter-container {
+  padding-bottom: 10px
+}
+.filter-container .filter-item {
+    display: inline-block;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.pagination-container {
+    margin-top: 30px;
+}
+</style>
