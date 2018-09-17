@@ -36,6 +36,12 @@ const frameIn = [
         component: () => import('@/pages/page3'),
         meta: { meta, title: '标准列表' }
       },
+      {
+        path: '/rule',
+        name: 'rule',
+        component: () => import('@/pages/rule'),
+        meta: { meta, title: '分类规则' }
+      }
     ]
   }
 ]

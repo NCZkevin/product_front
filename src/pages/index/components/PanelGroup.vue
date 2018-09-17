@@ -8,7 +8,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">产品总数</div>
-          <count-to :start-val="0" :end-val="12400" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="goods.total" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -20,7 +20,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">已分类</div>
-          <count-to :start-val="0" :end-val="8212" :duration="3000" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="goods.is_class" :duration="3000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -32,7 +32,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">未分类</div>
-          <count-to :start-val="0" :end-val="4280" :duration="3200" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="goods.no_class" :duration="3200" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -44,7 +44,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">分类比例</div>
-          <count-to :start-val="0" :end-val="45" :duration="5" class="card-panel-num"/>%
+          <count-to :start-val="0" :end-val="goods.percent" :duration="5" class="card-panel-num"/>%
         </div>
       </div>
     </el-col>
@@ -57,6 +57,7 @@ export default {
   components: {
     CountTo
   },
+  props: ['goods'],
   methods: {
     handleSetLineChartData (type) {
       this.$emit('handleSetLineChartData', type)

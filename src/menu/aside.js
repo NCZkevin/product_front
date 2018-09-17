@@ -7,6 +7,7 @@ export default [
     children: [
       { path: '/page1', title: '产品列表' },
       { path: '/page2', title: '分类列表' },
+      { path: '/rule', title: '分类规则' }
     ]
   },
   {

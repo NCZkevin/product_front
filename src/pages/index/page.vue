@@ -30,7 +30,7 @@
         <d2-help-btn class="d2-mt"/>
       </template>
     </d2-page-cover> -->
-    <panel-group @handleSetLineChartData="handleSetLineChartData"/>
+    <panel-group :goods="goods" @handleSetLineChartData="handleSetLineChartData"/>
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <ve-histogram :data="chartData"></ve-histogram>
@@ -42,6 +42,7 @@
 <script>
 import D2HelpBtn from './components/d2-help-btn'
 import PanelGroup from './components/PanelGroup'
+import {GetDashboard} from '@/api/api.js'
 
 const lineChartData = {
   newVisitis: {
@@ -69,6 +70,12 @@ export default {
   },
   data () {
     return {
+      goods: {
+        total: 0,
+        is_class: 0,
+        no_class: 0,
+        percent: 0
+      },
       lineChartData: lineChartData.newVisitis,
       chartData: {
         columns: ['日期', '访问用户', '下单用户'],
@@ -83,9 +90,21 @@ export default {
       }
     }
   },
+  created() {
+    this.getData()
+  },
   methods: {
     handleSetLineChartData (type) {
       this.lineChartData = lineChartData[type]
+    },
+    getData() {
+      GetDashboard().then(res => {
+        console.log(res)
+        this.goods.total = res.total
+        this.goods.is_class = res.is_class
+        this.goods.no_class = res.no_class
+        this.goods.percent = res.percent
+      })
     }
   }
 }
