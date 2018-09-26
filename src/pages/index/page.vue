@@ -42,7 +42,7 @@
 <script>
 import D2HelpBtn from './components/d2-help-btn'
 import PanelGroup from './components/PanelGroup'
-import {GetDashboard} from '@/api/api.js'
+import { GetDashboard } from '@/api/api.js'
 
 const lineChartData = {
   newVisitis: {
@@ -78,26 +78,26 @@ export default {
       },
       lineChartData: lineChartData.newVisitis,
       chartData: {
-        columns: ['日期', '访问用户', '下单用户'],
+        columns: ['品牌', '销量'],
         rows: [
-          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093 },
-          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230 },
-          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623 },
-          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423 },
-          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492 },
-          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293 }
+          { '品牌': '农夫山泉', '销量': 193 },
+          { '品牌': '恒大冰泉', '销量': 130 },
+          { '品牌': '百岁山', '销量': 123 },
+          { '品牌': '昆仑山', '销量': 83 },
+          { '品牌': '依云', '销量': 42 },
+          { '品牌': '巴黎水', '销量': 35 }
         ]
       }
     }
   },
-  created() {
+  created () {
     this.getData()
   },
   methods: {
     handleSetLineChartData (type) {
       this.lineChartData = lineChartData[type]
     },
-    getData() {
+    getData () {
       GetDashboard().then(res => {
         console.log(res)
         this.goods.total = res.total
