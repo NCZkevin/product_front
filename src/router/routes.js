@@ -41,6 +41,12 @@ const frameIn = [
         name: 'rule',
         component: () => import('@/pages/rule'),
         meta: { meta, title: '分类规则' }
+      },
+      {
+        path: '/upload',
+        name: 'upload',
+        component: () => import('@/pages/upload'),
+        meta: { meta, title: '上传数据' }
       }
     ]
   }

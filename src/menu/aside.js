@@ -16,5 +16,13 @@ export default [
     children: [
       { path: '/page3', title: '标准列表' }
     ]
+  },
+  {
+    title: '数据管理',
+    icon: 'list-alt',
+    children: [
+      { path: '/upload', title: '上传数据' },
+      { path: '/update', title: '更新分类' }
+    ]
   }
 ]
