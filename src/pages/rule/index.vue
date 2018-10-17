@@ -37,12 +37,12 @@
             </el-col>
         </el-row>
       </el-card>
-  </d2-container>      
+  </d2-container>
 </template>
 
 <script>
 /* eslint-disable */
-import { GoodTableList,CategTableList,CompanyList,ClassesList } from '@/api/api.js'
+import { GoodTableList,CategTableList,CompanyList,ClassesList,CompanyRule } from '@/api/api.js'
 
 export default {
   name: 'rule',
@@ -105,7 +105,12 @@ export default {
         console.log(item);
     },
     baseCpRule() {
-        console.log(1)
+      CompanyRule({comy: this.state2,categ:this.state1}).then(res => {
+        this.$message({
+            message: res.num+"条产品被分类",
+            type: 'success'
+        });
+      })
     }
 },
   mounted() {

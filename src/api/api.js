@@ -40,3 +40,12 @@ export function ClassesList (data) {
   })
 }
 
+export function CompanyRule (data) {
+  return request({
+    url: 'http://localhost:8000/rule/company/',
+    method: 'post',
+    data: data
+  })
+}
+
+
