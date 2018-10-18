@@ -1,8 +1,11 @@
-import request from '@/plugin/axios'
 /* eslint-disable */
+import request from '@/plugin/axios'
+import { dev, pro } from './url'
+var baseurl = pro
+
 export function GetDashboard (data) {
   return request({
-    url: 'http://localhost:8000/dashboard',
+    url: baseurl + 'dashboard',
     method: 'get',
     params: data
   })
@@ -10,7 +13,7 @@ export function GetDashboard (data) {
 
 export function CategTableList (data) {
   return request({
-    url: 'http://localhost:8000/categorys/',
+    url: baseurl + 'categorys/',
     method: 'get',
     params: data
   })
@@ -18,7 +21,7 @@ export function CategTableList (data) {
 
 export function GoodTableList (data) {
     return request({
-      url: 'http://localhost:8000/goods/',
+      url: baseurl + 'goods/',
       method: 'get',
       params: data
     })
@@ -26,7 +29,7 @@ export function GoodTableList (data) {
   
 export function CompanyList (data) {
   return request({
-    url: 'http://localhost:8000/company/',
+    url: baseurl + 'company/',
     method: 'get',
     params: data
   })
@@ -34,7 +37,7 @@ export function CompanyList (data) {
   
 export function ClassesList (data) {
   return request({
-    url: 'http://localhost:8000/classes/',
+    url: baseurl + 'classes/',
     method: 'get',
     params: data
   })
@@ -42,7 +45,7 @@ export function ClassesList (data) {
 
 export function CompanyRule (data) {
   return request({
-    url: 'http://localhost:8000/rule/company/',
+    url: baseurl + 'rule/company/',
     method: 'post',
     data: data
   })

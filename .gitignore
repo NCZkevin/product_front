@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-
+/src/api/url.js
 # Log files
 npm-debug.log*
 yarn-debug.log*
