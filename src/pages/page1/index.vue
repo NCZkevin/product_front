@@ -66,17 +66,20 @@
       </el-table-column>
       <el-table-column label="状态" class-name="status-col" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-tag v-if="scope.row.is_class == 0" :type="scope.row.is_class | statusFilter">未分类</el-tag>
+          <el-tag v-if="scope.row.is_class == 1" :type="scope.row.is_class | statusFilter">已分类</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button v-if="scope.row.status!='published'" size="mini" type="success" @click="handleModifyStatus(scope.row,'已分类')">发布
-          </el-button>
+          <!-- <el-button v-if="scope.row.status!='published'" size="mini" type="success" @click="handleModifyStatus(scope.row,'已分类')">发布
+          </el-button> -->
           <!-- <el-button v-if="scope.row.status!='draft'" size="mini" @click="handleModifyStatus(scope.row,'draft')">草稿
           </el-button> -->
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'删除')">删除
+          <!-- <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'删除')">删除
+          </el-button> -->
+          <el-button size="mini" type="danger" @click="handleModifyStatus(scope.row,'删除')">删除
           </el-button>
         </template>
       </el-table-column>
@@ -105,8 +108,8 @@
         <el-form-item label="公司">
           <el-input v-model="temp.company"/>
         </el-form-item>
-        <el-form-item label="分类" prop="classe">
-          <el-input v-model="temp.classes"/>
+        <el-form-item label="分类" prop="classname">
+          <el-input v-model="temp.classname"/>
         </el-form-item>
         <!-- <el-form-item :label="$t('table.status')">
           <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
@@ -150,11 +153,12 @@ export default {
   name: 'page1',
   filters: {
     statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
+      // const statusMap = {
+      //   published: 'success',
+      //   draft: 'info',
+      //   deleted: 'danger'
+      // }
+      const statusMap = ['danger','success']
       return statusMap[status]
     },
     typeFilter(type) {
@@ -181,15 +185,18 @@ export default {
       sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
-      temp: {
-        id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-        status: 'published'
-      },
+      // temp: {
+      //   id: undefined,
+      //   importance: 1,
+      //   remark: '',
+      //   timestamp: new Date(),
+      //   title: '',
+      //   type: '',
+      //   status: 'published',
+        
+      // },
+      temp: {},
+      classes: {},
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -290,6 +297,12 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      if(this.temp.is_class != 0){
+        this.temp.classname = this.temp.classes[0].name
+      }
+      else {
+        this.temp.classname = ''
+      }
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true

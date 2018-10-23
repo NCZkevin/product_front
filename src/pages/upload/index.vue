@@ -9,7 +9,7 @@
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-upload="beforefileUpload"
-        :on-success = 'handleSuccess'
+        :on-success = "handleSuccess"
         :limit="1"
         :file-list="fileList"
         :auto-upload="false">
