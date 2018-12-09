@@ -1,7 +1,7 @@
 /* eslint-disable */
 import request from '@/plugin/axios'
 import { dev, pro } from './url'
-var baseurl = pro
+var baseurl = dev
 
 export function GetDashboard (data) {
   return request({
@@ -26,7 +26,15 @@ export function GoodTableList (data) {
       params: data
     })
   }
-  
+
+export function UpdateTag (data) {
+  return request({
+    url: baseurl + 'goods/',
+    method: 'patch',
+    data: data
+  })
+}
+
 export function CompanyList (data) {
   return request({
     url: baseurl + 'company/',

@@ -19,10 +19,22 @@ const frameIn = [
         component: () => import('@/pages/index')
       },
       {
-        path: '/page1',
-        name: 'page1',
-        component: () => import('@/pages/page1'),
+        path: '/prolist',
+        name: 'prolist',
+        component: () => import('@/pages/prolist'),
         meta: { meta, title: '产品列表' }
+      },
+      {
+        path: '/proclassyes',
+        name: 'proclassyes',
+        component: () => import('@/pages/prolist/proclassyes'),
+        meta: { meta, title: '已分类产品列表' }
+      },
+      {
+        path: '/proclassno',
+        name: 'proclassno',
+        component: () => import('@/pages/prolist/proclassno'),
+        meta: { meta, title: '未分类产品列表' }
       },
       {
         path: '/page2',

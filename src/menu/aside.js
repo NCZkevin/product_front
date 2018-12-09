@@ -5,7 +5,13 @@ export default [
     title: '产品分类',
     icon: 'archive',
     children: [
-      { path: '/page1', title: '产品列表' },
+      { path: '/prolist', title: '产品列表' },
+      { title: '产品审核',
+        children: [
+          { path: '/proclassyes', title: '已分类' },
+          { path: '/proclassno', title: '未分类' }
+        ]
+      },
       { path: '/page2', title: '分类列表' },
       { path: '/rule', title: '分类规则' }
     ]
