@@ -70,7 +70,7 @@
     </el-table>
 
     <div class="pagination-container">
-      <el-pagination v-show="total>0" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+      <el-pagination v-show="total>0" :current-page="listQuery.page" :page-sizes="[20,30, 50]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
     </div>
 
   </d2-container>
@@ -100,7 +100,7 @@ export default {
       categs: [],
       listQuery: {
         page: 1,
-        limit: 20,
+        limit: 50,
         importance: undefined,
         title: undefined,
         type: undefined,
