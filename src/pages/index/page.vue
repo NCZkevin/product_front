@@ -36,6 +36,12 @@
       <ve-histogram :data="chartData"></ve-histogram>
     </el-row>
 
+    <el-card shadow="never" class="d2-card">
+      <template slot="header">执行分类</template>
+      <el-row class="startclass">
+          <el-button disabled type="primary" class="card-button" @click="baseCpRule">开始分类</el-button>
+      </el-row>
+    </el-card>
   </d2-container>
 </template>
 
