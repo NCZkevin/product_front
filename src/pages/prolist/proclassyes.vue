@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import { GoodTableList, ClassesList } from '@/api/api.js'
+import { GoodTableList, ClassesList, UpdateTag } from '@/api/api.js'
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 /* eslint-disable */
 import axios from '@/plugin/axios'
@@ -199,7 +199,7 @@ export default {
       },
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
-      sortOptions: [{ label: '全部', key: '2' },{ label: '已审核', key: '1' }, { label: '未审核', key: '0' }],
+      sortOptions: [{ label: '全部', key: '2' },{ label: '审核通过', key: '1' }, { label: '审核未通过', key: '3' }, { label: '未审核', key: '0' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       // temp: {
@@ -278,6 +278,10 @@ export default {
         this.listQuery.click = 1
         this.listQuery.page = 1
         this.getList()
+      } else if (this.listQuery.sort == 3) {
+        this.listQuery.click = 2
+        this.listQuery.page = 1
+        this.getList()
       } else {
         this.listQuery.click = undefined
         this.getList()
@@ -296,15 +300,20 @@ export default {
     },
     handleModifyStatus(row) {
       this.temp = Object.assign({}, row) // copy obj
-      axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
-          'is_click': 1
+      UpdateTag(this.temp.id,{
+          'is_click': 2
       }).then(res => {
-          console.log(res)
-      })       
-      this.$message({
-        message: '操作成功',
-        type: 'success'
-      })
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
+      })      
+    //   axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
+    //       'is_click': 1
+    //   }).then(res => {
+    //       console.log(res)
+    //   })       
+
       row.status = 'click'
     },
     resetTemp() {
@@ -346,11 +355,16 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
+      UpdateTag(this.temp.id,{
           'classes': [{"name":this.temp.classes[0].name}]
       }).then(res => {
           console.log(res)
-      })
+      })      
+    //   axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
+    //       'classes': [{"name":this.temp.classes[0].name}]
+    //   }).then(res => {
+    //       console.log(res)
+    //   })
       row.status = 'click'
     //   UpdateTag(
           

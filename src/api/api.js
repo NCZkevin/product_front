@@ -27,9 +27,9 @@ export function GoodTableList (data) {
     })
   }
 
-export function UpdateTag (data) {
+export function UpdateTag (id,data) {
   return request({
-    url: baseurl + 'goods/',
+    url: baseurl + 'goods/' + id + '/',
     method: 'patch',
     data: data
   })

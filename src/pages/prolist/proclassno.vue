@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { GoodTableList, ClassesList } from '@/api/api.js'
+import { GoodTableList, ClassesList, UpdateTag } from '@/api/api.js'
 // import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 /* eslint-disable */
 import axios from '@/plugin/axios'
@@ -175,11 +175,11 @@ export default {
     },
     handleModifyStatus(row) {
       this.temp = Object.assign({}, row) // copy obj
-      axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
+      UpdateTag(this.temp.id,{
           'is_click': 1
       }).then(res => {
           console.log(res)
-      })       
+      })        
       this.$message({
         message: '操作成功',
         type: 'success'
@@ -228,31 +228,19 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      axios.patch('http://localhost:8000/goods/' + this.temp.id + '/',{
+      if(this.temp.classes[0] == undefined){
+        this.$message({
+          message: '失败,请选择类别',
+          type: 'warning'
+        })
+      } else {
+      UpdateTag(this.temp.id,{
           'classes': [{"name":this.temp.classes[0]}]
       }).then(res => {
           console.log(res)
-      })
+      })            
       row.status = 'click'
-    //   UpdateTag(
-          
-    //   ).then(response => {
-
-    //   })
-
-    //   if(this.temp.is_class != 0){
-    //     this.temp.classname = this.temp.classes[0].name
-    //   }
-    //   else {
-    //     this.temp.classname = ''
-    //   }
-    //   this.temp.timestamp = new Date(this.temp.timestamp)
-    //   this.dialogStatus = 'update'
-    //   this.dialogFormVisible = true
-    //   this.$nextTick(() => {
-    //     this.$refs['dataForm'].clearValidate()
-    //   })
-
+      }
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
