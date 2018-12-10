@@ -6,6 +6,7 @@
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key"/>
       </el-select>
+      <el-button class="filter-item" type="primary" icon="el-icon-refresh" @click="handleRefresh">刷新</el-button>
     </div>
 
       <el-table
@@ -162,6 +163,9 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val
       this.getList()
+    },
+    handleRefresh() {
+        this.getList()
     },
     querySearch(queryString, cb) {
         var category = this.categs;
